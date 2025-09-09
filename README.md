@@ -19,7 +19,7 @@ sceasy is installable either as a bioconda package:
 
 or as an R package:
 
-```devtools::install_github("cellgeni/sceasy")```
+```devtools::install_github("johnmous/sceasy")```
 
 which will require the biconductor packages BiocManager and LoomExperiment:
 

@@ -63,8 +63,19 @@ seurat2anndata <- function(obj, outFile = NULL, assay = "RNA", main_layer = "dat
 
   obs <- .regularise_df(obj@meta.data, drop_single_values = drop_single_values)
 
-  var <- .regularise_df(Seurat::GetAssay(obj, assay = assay)@meta.features, drop_single_values = drop_single_values)
-
+  # var <- .regularise_df(Seurat::GetAssay(obj, assay = assay)@meta.features, drop_single_values = drop_single_values)
+   var <- .regularise_df(
+    if (class(seurat_object@assays$RNA)[1] == "Assay") {
+      Seurat::GetAssay(obj, assay)@meta.features
+    } else if (class(seurat_object@assays$RNA)[1] == "Assay5") {
+      Seurat::GetAssay(obj, assay)@meta.data
+    } else {
+      stop("No meta.features or meta.data found on assay.")
+    },
+    drop_single_values = drop_single_values
+  )
+  rownames(var) <- rownames(obj)
+  
   obsm <- NULL
   reductions <- names(obj@reductions)
   if (length(reductions) > 0) {
