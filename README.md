@@ -51,6 +51,9 @@ Before converting your data please load the following libraries in your R sessio
 library(sceasy)
 library(reticulate)
 use_condaenv('EnvironmentName')
+# If above line does not work, use the following
+reticulate::use_python("/path/to/mambaforge/envs/sceasy/bin/python")
+
 loompy <- reticulate::import('loompy')
 ```
 
